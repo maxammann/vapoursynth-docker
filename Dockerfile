@@ -44,8 +44,8 @@ RUN git clone https://aur.archlinux.org/vapoursynth-plugin-vsjetpack-git.git
 WORKDIR /home/builder/vapoursynth-plugin-vsjetpack-git
 
 # Replace source in PKGBUILD via sed (example hash shown)
-RUN sed -i 's|^source=.*|source=("vsjetpack::git+https://github.com/Jaded-Encoding-Thaumaturgy/vs-jetpack.git#commit=6a88b9a59d67051afbb02d556117e6eaf20bc147")|' PKGBUILD && \
-    sed -i '/^pkgver()/,/^}/c\pkgver() {\n  echo "r0.6a88b9a59d67051afbb02d556117e6eaf20bc147"\n}' PKGBUILD
+#RUN sed -i 's|^source=.*|source=("vsjetpack::git+https://github.com/Jaded-Encoding-Thaumaturgy/vs-jetpack.git#commit=6a88b9a59d67051afbb02d556117e6eaf20bc147")|' PKGBUILD && \
+#    sed -i '/^pkgver()/,/^}/c\pkgver() {\n  echo "r0.6a88b9a59d67051afbb02d556117e6eaf20bc147"\n}' PKGBUILD
 
 # Build and install
 RUN yay -S --noconfirm \
@@ -58,16 +58,19 @@ RUN yay -S --noconfirm \
 RUN makepkg -si --noconfirm
 
 
-RUN yay -S --noconfirm vapoursynth-plugin-havsfunc-git
+#RUN yay -S --noconfirm vapoursynth-plugin-havsfunc-git
 RUN yay -S --noconfirm vapoursynth-plugin-znedi3-git
 RUN yay -S --noconfirm vapoursynth-plugin-eedi3m-git 
 RUN yay -S --noconfirm vapoursynth-plugin-bestsource
+RUN yay -S --noconfirm vapoursynth-plugin-dfttest2-cpu-git 
+RUN yay -S --noconfirm ffms2
+
 
 USER root
 
 
-RUN pip uninstall -y --break-system-packages jetpytools
-RUN pip install --break-system-packages --force jetpytools==1.4.0 
+#RUN pip uninstall -y --break-system-packages jetpytools
+#RUN pip install --break-system-packages --force jetpytools==1.4.0 
 
 
 
