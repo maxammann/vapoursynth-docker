@@ -14,8 +14,9 @@ sudo docker run --rm -it -v /run/media/max/0204d394-4633-44de-a7de-e01b3f150884/
 ```
 
 
+bwdif
 ```
-ffmpeg -i - -i /run/media/max/0204d394-4633-44de-a7de-e01b3f150884/Capture0000-merged-1762011239406-fixed.mov -filter:v bwdif=mode=send_field:parity=auto:deint=all -c:v libx264 -crf 23 -profile:v high422 -pix_fmt yuv422p10le -c:a copy -y /output/Capture0000-merged-1762011239406-bwdif.mkv'
+ffmpeg -i /run/media/max/0204d394-4633-44de-a7de-e01b3f150884/Capture0000-merged-1762011239406-fixed.mov -filter:v bwdif=mode=send_field:parity=auto:deint=all -c:v libx264 -crf 23 -profile:v high422 -pix_fmt yuv422p10le -c:a copy -y Capture0000-merged-1762011239406-bwdif.mkv
 ```
 
 
