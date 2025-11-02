@@ -1,6 +1,8 @@
 import vapoursynth as vs
 core = vs.core
 
+core.num_threads = 12
+
 from vsdeinterlace import QTempGaussMC
 clip = core.bs.VideoSource(source='/video.mp4', threads=12)
 
