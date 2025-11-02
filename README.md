@@ -19,6 +19,9 @@ bwdif
 ffmpeg -i /run/media/max/0204d394-4633-44de-a7de-e01b3f150884/Capture0000-merged-1762011239406-fixed.mov -filter:v bwdif=mode=send_field:parity=auto:deint=all -c:v libx264 -crf 23 -profile:v high422 -pix_fmt yuv422p10le -c:a copy -y Capture0000-merged-1762011239406-bwdif.mkv
 ```
 
+```
+ffmpeg -i benchmark.mov -filter:v nnedi=weights=/home/max/Downloads/nnedi3_weights.bin -c:v libx264 -crf 23 -profile:v high422 -pix_fmt yuv422p10le -c:a copy benchmark-nnedi.mov
+```
 
 
 ```
@@ -34,6 +37,11 @@ ffmpeg -i Capture0002.mov -c:v prores -c:a copy -f mov -y /dev/null
 
 
 ### Troubleshooting
+
+Cutting:
+```
+ffmpeg -i /run/media/max/0204d394-4633-44de-a7de-e01b3f150884/Capture0000-merged-1762011239406-fixed.mov -ss 1:23:00 -t 00:02:00 -c copy benchmark.mov
+```
 
 
 Errors from Shuttle 2:

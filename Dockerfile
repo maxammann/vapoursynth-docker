@@ -62,12 +62,45 @@ RUN makepkg -si --noconfirm
 RUN yay -S --noconfirm vapoursynth-plugin-znedi3-git
 RUN yay -S --noconfirm vapoursynth-plugin-eedi3m-git 
 RUN yay -S --noconfirm vapoursynth-plugin-bestsource
-RUN yay -S --noconfirm vapoursynth-plugin-dfttest2-cpu-git 
+#RUN yay -S --noconfirm cuda
+RUN yay -S --noconfirm wget
+
+
+RUN wget https://archive.archlinux.org/packages/c/cuda/cuda-12.9.1-2-x86_64.pkg.tar.zst     && sudo pacman -U --noconfirm  cuda-12.9.1-2-x86_64.pkg.tar.zst     
+
+
+RUN source /etc/profile.d/cuda.sh && yay -S --noconfirm vapoursynth-plugin-dfttest2-git
+RUN source /etc/profile.d/cuda.sh && yay -S --noconfirm vapoursynth-plugin-eedi2cuda-git 
+RUN yay -S --noconfirm vapoursynth-plugin-eedi2-git 
+RUN yay -S --noconfirm vapoursynth-plugin-bwdif-git 
+RUN yay -S --noconfirm vapoursynth-plugin-eedi3m-git
+#RUN yay -S --noconfirm vapoursynth-plugin-nnedi3-git 
+
+
 RUN yay -S --noconfirm ffms2
-
-
 USER root
 
+
+RUN mkdir -p /workspace
+WORKDIR /workspace
+RUN wget https://github.com/Jaded-Encoding-Thaumaturgy/vapoursynth-SNEEDIF/archive/refs/tags/R3.tar.gz
+RUN tar -xvf R3.tar.gz
+RUN cd vapoursynth-SNEEDIF-R3 && meson setup builddir --buildtype release && meson compile -C builddir
+RUN cp vapoursynth-SNEEDIF-R3/builddir/libsneedif.so /usr/lib/vapoursynth/
+
+
+
+
+
+
+RUN echo "/lib64" > /etc/ld.so.conf.d/lib64.conf
+
+
+
+ENV CUDA_PATH=/opt/cuda
+ENV NVCC_CCBIN='/usr/bin/g++'
+ENV PATH="$PATH:/opt/cuda/bin"
+#ENV LD_LIBRARY_PATH="/opt/cuda/lib"
 
 #RUN pip uninstall -y --break-system-packages jetpytools
 #RUN pip install --break-system-packages --force jetpytools==1.4.0 
